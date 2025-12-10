@@ -55,6 +55,7 @@ function buildKeyboard() {
             let b = document.createElement("div")
             b.setAttribute("class", "keyboard-key")
             b.setAttribute("id", `${name}`)
+            b.setAttribute("onclick", `keyPress('${name}')`)
             b.innerHTML = name
 
             // Make the back arrow a little bigger

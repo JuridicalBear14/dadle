@@ -1,0 +1,78 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #121213;
+    
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Top app bar */
+#top-bar {
+    width: auto;
+    height: 8%;
+    background-color: brown;
+}
+
+/* Container for keyboard */
+#keyboard-container {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    margin-top: 150px;
+}
+
+/* Individual keyboard key */
+.keyboard-key {
+    display: flex;
+    margin: 3px;
+    border-radius: 7px;
+    min-width: 45px;
+    min-height: 60px;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #818384;
+    text-transform: uppercase;
+    padding: 2px;
+}
+
+.kb-row {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+}
+
+/* Container for letter boxes */
+#letter-container {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    margin-top: 150px;
+}
+
+.letter-box {
+    display: flex;
+    margin: 3px;
+    border: 2px solid #3a3a3c;
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    text-transform: uppercase;
+}
+
+.letter-box:correct {
+    background-color: #538d4e;
+}
+
+/* Use state attribute for changes */
+
+.lb-row {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+}

@@ -5,13 +5,28 @@
     <title>Dadle</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
+
+    <script src="game_manager.js" defer></script>
+    <script src="ui_builder.js" defer></script>
 </head>
 <body>
-    <h1>Happy Birthday Dad!</h1>
+    <!-- <div class="letter-box" onclick="console.log('yo')">B</div> -->
+     
+    <!-- Top bar -->
+    <div id="top-bar">
 
+    </div>
 
+    <!-- Letter boxes go here (when loaded) -->
+    <div id="letter-container">
+      
 
+    </div>
 
+    <!-- Keyboard goes here (when loaded) -->
+    <div id="keyboard-container">
+
+    </div>
 
     <script>
       if('serviceWorker' in navigator) {

@@ -3,6 +3,7 @@ let target_word = ""   // Solution word the user is looking for
 let current_row = 0   // Row we're currently on (aka how many guesses left)
 let current_word = ""  // The word the user is currently typing
 let all_words = []
+let answer_words = []
 
 // Gameplay stuff
 
@@ -42,7 +43,7 @@ function keyPress(key) {
         let states = [0, 0, 0, 0, 0]
 
         // Box background colors
-        let colors = ["#585860", "#b59f3b", "#538d4e"]
+        let colors = ["#3a3a3c", "#b59f3b", "#538d4e"]
 
         for (let i = 0; i < 5; i++) {
             if (target_word[i] == current_word[i]) {   // Correct
@@ -52,6 +53,9 @@ function keyPress(key) {
             }
         }
 
+        // Save the current word before clearing to set keyboard colors
+        let save = current_word
+
         // Now update boxes accordingly
         for (let i = 0; i < 5; i++) {
             let color = colors[states[i]]
@@ -60,6 +64,9 @@ function keyPress(key) {
                 let box = document.getElementById(`${row}${i}`)
                 box.style.backgroundColor = color
                 box.style.border = `2px solid ${color}`
+
+                let key = document.getElementById(`${save[i]}`)
+                key.style.backgroundColor = color
             }, i * 500)
         }
 
@@ -70,10 +77,13 @@ function keyPress(key) {
 
         // Check for win/loss
         if (current_row > 5) {
-            // TODO: Loss
+            setTimeout(() => {
+                buildWL(false, target_word)
+            }, 2800)
         } else if (states.toString() == "2,2,2,2,2") {  // Elegant? no. Easy? yes
-            // TODO: win
-            console.log("win")
+            setTimeout(() => {
+                buildWL(true, target_word)
+            }, 2800)
         }
 
     } else {   // Backspace
@@ -90,13 +100,6 @@ function keyPress(key) {
         box.style.border = "2px solid #3a3a3c"
     }
 }
-
-
-
-
-
-
-
 
 
 
@@ -130,16 +133,46 @@ async function loadData() {
     return [wordlist, awordlist]
 }
 
-// Choose the target word
-function chooseWord() {
-    loadData().then(lists => {
-        const [wordlist, answerlist] = lists
-        all_words = wordlist
-
-        let randomIndex = Math.floor(Math.random() * answerlist.length)
-        target_word = answerlist[randomIndex]
-        console.log(target_word)
-    })
+// Choose the target word (given a list of options)
+function chooseWord(answerlist) {
+    let randomIndex = Math.floor(Math.random() * answerlist.length)
+    target_word = answerlist[randomIndex]
+    console.log(target_word)
 }
 
-chooseWord()
+// Clear everything and start a new game
+function newGame() {
+    // Delete keyboard (faster than resetting)
+    let k = document.getElementById("keyboard-container")
+    k.innerHTML = ""
+    
+    // Delete letter boxes
+    let l = document.getElementById("letter-container")
+    l.innerHTML = ""
+
+    // Delete popups
+    let p = document.getElementById("popup")
+    if (p != null) {
+        p.remove()
+    }
+    
+    // Reset game vars
+    target_word = ""
+    current_word = ""
+    current_row = 0
+
+    // Choose new word
+    chooseWord(answer_words)
+
+    // Rebuild UI
+    buildKeyboard()
+    buildLetterGrid()
+}
+
+loadData().then(lists => {
+    const [wordlist, answerlist] = lists
+    all_words = wordlist
+    answer_words = answerlist
+
+    chooseWord(answerlist)
+})

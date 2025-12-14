@@ -61,13 +61,13 @@ function buildKeyboard() {
             // Make the back arrow a little bigger
             if (name == "\u2190") {
                 b.style.fontSize = 30
-                b.style.width = 80
+                b.style.width = 40
             }
 
             // Make enter bigger
             if (name == "enter") {
-                b.style.width = 90
-                b.style.fontSize = 18
+                b.style.width = 50
+                b.style.fontSize = 14
             }
 
             // TODO: give each one some js code to call corresponding function when clicked

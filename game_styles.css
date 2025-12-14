@@ -4,6 +4,12 @@ body {
     background-color: #121213;
     margin: 0;
     
+    /* For testing phone width */
+    /* width: 400px;
+    height: 850px;
+    margin-left: 40%;
+    border: 5px solid #094483; */
+    
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -59,8 +65,8 @@ body {
     justify-content: center;
     top: auto;
     left: auto;
-    width: 100%;
-    height: 100%;
+    width: 400px;
+    height: 850;
     z-index: 10;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
 }
@@ -74,18 +80,18 @@ body {
     background-color: #3a3a3c;
     width: fit-content;
     height: fit-content;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
 }
 
 #winloss h1 {
     color: white;
-    font-size: 50px;
+    font-size: 40px;
 }
 
 #winloss p {
     color: white;
-    font-size: 25px;
+    font-size: 20px;
     width: 70%;
     text-align: center;
 }
@@ -111,16 +117,16 @@ body {
     display: flex;
     align-self: center;
     flex-direction: column;
-    margin-top: 150px;
+    margin-top: 20%;
 }
 
 /* Individual keyboard key */
 .keyboard-key {
     display: flex;
     margin: 3px;
-    border-radius: 7px;
-    min-width: 45px;
-    min-height: 60px;
+    border-radius: 3px;
+    min-width: 30px;
+    min-height: 30px;
     font-size: 24px;
     align-items: center;
     justify-content: center;
@@ -142,7 +148,7 @@ body {
     display: flex;
     align-self: center;
     flex-direction: column;
-    margin-top: 150px;
+    margin-top: 20%;
 }
 
 .letter-box {

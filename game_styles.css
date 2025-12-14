@@ -1,14 +1,8 @@
 body {
-    display: flex;
+    display: grid;
     flex-direction: column;
     background-color: #121213;
     margin: 0;
-    
-    /* For testing phone width */
-    /* width: 400px;
-    height: 850px;
-    margin-left: 40%;
-    border: 5px solid #094483; */
     
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -65,8 +59,8 @@ body {
     justify-content: center;
     top: auto;
     left: auto;
-    width: 400px;
-    height: 850;
+    width: 100%;
+    height: 100%;
     z-index: 10;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
 }
@@ -117,7 +111,7 @@ body {
     display: flex;
     align-self: center;
     flex-direction: column;
-    margin-top: 20%;
+    margin-top: auto;
 }
 
 /* Individual keyboard key */
@@ -148,7 +142,6 @@ body {
     display: flex;
     align-self: center;
     flex-direction: column;
-    margin-top: 20%;
 }
 
 .letter-box {

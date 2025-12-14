@@ -4,12 +4,6 @@ body {
     background-color: #121213;
     margin: 0;
     
-    /* For testing phone width */
-    /* width: 400px;
-    height: 850px;
-    margin-left: 40%;
-    border: 5px solid #094483; */
-    
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 

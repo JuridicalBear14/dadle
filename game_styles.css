@@ -110,6 +110,9 @@ body {
     display: flex;
     align-self: center;
     flex-direction: column;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: auto;
     margin-bottom: 2%;
 }
@@ -142,6 +145,8 @@ body {
     display: flex;
     align-self: center;
     flex-direction: column;
+    width: fit-content;
+    margin: auto;
 }
 
 .letter-box {

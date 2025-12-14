@@ -76,13 +76,13 @@ function keyPress(key) {
         current_row += 1
 
         // Check for win/loss
-        if (current_row > 5) {
-            setTimeout(() => {
-                buildWL(false, target_word)
-            }, 2800)
-        } else if (states.toString() == "2,2,2,2,2") {  // Elegant? no. Easy? yes
+        if (states.toString() == "2,2,2,2,2") {  // Elegant? no. Easy? yes
             setTimeout(() => {
                 buildWL(true, target_word)
+            }, 2800)
+        } else if (current_row > 5) {
+            setTimeout(() => {
+                buildWL(false, target_word)
             }, 2800)
         }
 

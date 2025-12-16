@@ -34,7 +34,7 @@ function load_stats() {
         stats = {
             "wins" : 0,
             "losses" : 0,
-            "wins_by_len" : [0, 0, 0, 0, 0, 1]
+            "wins_by_len" : [0, 0, 0, 0, 0, 0]
         }
     }
 

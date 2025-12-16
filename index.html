@@ -7,11 +7,12 @@
     <link rel="manifest" href="manifest.json">
 
     <script src="home_screen_builder.js" defer></script>
+    <script src="storage_manager.js"></script>
 </head>
 <body>
     <div id="top-bar">
-        <button id="stats">Stats6</button> 
-        <button id="info" onclick="">Info</button>
+        <button id="stats" onclick="buildStats()">Stats6</button> 
+        <button id="info" onclick="buildInfo()">Info</button>
     </div>
 
     <!-- Main title (empty and gets loaded later) -->

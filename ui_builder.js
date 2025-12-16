@@ -1,9 +1,17 @@
 // The code to place all of the boxes and stuff on screen
 
+// Box background colors
+let colors = ["#3a3a3c", "#b59f3b", "#538d4e"]
+
 // Initialize grid of letters
 function buildLetterGrid() {
     // Build a 5x6 grid of letter-box divs, each one should have an id matching its position (ex: 1:1)
     let main = document.getElementById("letter-container")
+
+    // Extract data for prefill
+    let current_word = game_state["current_word"]
+    let history = game_state["word_history"]
+    let current_row = game_state["current_row"]
 
     // Loop for rows
     for (let i = 0; i < 6; i++) {
@@ -17,6 +25,28 @@ function buildLetterGrid() {
             let b = document.createElement("div")
             b.setAttribute("class", "letter-box")
             b.setAttribute("id", `${i}${j}`)
+
+            // If in history, prefill
+            if (i < current_row) {
+                // In history, so add and figure out colors
+                b.innerHTML = history[(i * 10) + j]
+                
+                b.style.backgroundColor = colors[history[(i * 10) + j + 5]]   // I don't even want to talk about it
+                b.style.border = `2px solid ${colors[history[(i * 10) + j + 5]]}`
+
+                // Also set keyboard keys
+                let key = document.getElementById(`${history[(i * 10) + j]}`)
+
+                // Don't overwrite green keys with yellows
+                if (!(window.getComputedStyle(key).backgroundColor == "rgb(83, 141, 78)")) {
+                    key.style.backgroundColor = colors[history[(i * 10) + j + 5]]
+                }
+            } else if (i == current_row && current_word != "") {
+                // Is there a letter in our ix
+                if (j < current_word.length) {
+                    b.innerHTML = current_word[j]
+                }
+            }
 
             r.appendChild(b)
         }
@@ -108,5 +138,5 @@ function buildWL(win, word) {
 }
 
 // On startup build the ui
-buildLetterGrid()
 buildKeyboard()
+buildLetterGrid()

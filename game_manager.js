@@ -1,7 +1,7 @@
 // The actual game backend code, called by UI stuff
-let target_word = ""   // Solution word the user is looking for
-let current_row = 0   // Row we're currently on (aka how many guesses left)
-let current_word = ""  // The word the user is currently typing
+let game_state = load_game()
+let stats = load_stats()
+
 let all_words = []
 let answer_words = []
 
@@ -9,6 +9,11 @@ let answer_words = []
 
 // Handle keyboard click
 function keyPress(key) {
+    // Here for typing convenience
+    let current_word = game_state["current_word"]
+    let target_word = game_state["target_word"]
+    let current_row = game_state["current_row"]
+
     // Calculate row and col of next empty space
     let row = current_row
     let col = current_word.length
@@ -21,7 +26,7 @@ function keyPress(key) {
         }
 
         // Otherwise, add to space
-        current_word += key
+        game_state["current_word"] += key
 
         let box = document.getElementById(`${row}${col}`)
         box.innerHTML = key
@@ -53,34 +58,51 @@ function keyPress(key) {
             }
         }
 
-        // Save the current word before clearing to set keyboard colors
-        let save = current_word
+        let cstates = []
 
         // Now update boxes accordingly
         for (let i = 0; i < 5; i++) {
             let color = colors[states[i]]
+            cstates.push(states[i])
 
             setTimeout(() => {
                 let box = document.getElementById(`${row}${i}`)
                 box.style.backgroundColor = color
                 box.style.border = `2px solid ${color}`
 
-                let key = document.getElementById(`${save[i]}`)
-                key.style.backgroundColor = color
+                let key = document.getElementById(`${current_word[i]}`)
+
+                // Don't overwrite green keys with yellows
+                if (!(window.getComputedStyle(key).backgroundColor == "rgb(83, 141, 78)")) {
+                    key.style.backgroundColor = color
+                }
             }, i * 500)
         }
 
 
         // Clear everything
-        current_word = ""
         current_row += 1
+
+        game_state["current_word"] = ""
+        game_state["current_row"] += 1
+        game_state["word_history"] += current_word + cstates.toString().replaceAll(",", "")
 
         // Check for win/loss
         if (states.toString() == "2,2,2,2,2") {  // Elegant? no. Easy? yes
+            // Save to stats
+            stats["wins"] += 1
+            stats["wins_by_len"][current_row - 1] += 1
+
+            save_stats()
+
             setTimeout(() => {
                 buildWL(true, target_word)
             }, 2800)
         } else if (current_row > 5) {
+            stats["losses"] += 1
+
+            save_stats()
+
             setTimeout(() => {
                 buildWL(false, target_word)
             }, 2800)
@@ -92,13 +114,15 @@ function keyPress(key) {
             return
         }
 
-        current_word = current_word.slice(0, col - 1)
+        game_state["current_word"] = current_word.slice(0, col - 1)
         col -= 1
 
         let box = document.getElementById(`${row}${col}`)
         box.innerHTML = ""
         box.style.border = "2px solid #3a3a3c"
     }
+
+    save_game()
 }
 
 
@@ -136,8 +160,8 @@ async function loadData() {
 // Choose the target word (given a list of options)
 function chooseWord(answerlist) {
     let randomIndex = Math.floor(Math.random() * answerlist.length)
-    target_word = answerlist[randomIndex]
-    console.log(target_word)
+    game_state["target_word"] = answerlist[randomIndex]
+    console.log(game_state["target_word"])
 }
 
 // Clear everything and start a new game
@@ -157,9 +181,14 @@ function newGame() {
     }
     
     // Reset game vars
-    target_word = ""
-    current_word = ""
-    current_row = 0
+    game_state = {
+        "target_word" : "",  
+        "current_row" : 0,   
+        "current_word" : "",
+        "word_history" : ""  
+    }
+
+    save_game()
 
     // Choose new word
     chooseWord(answer_words)
@@ -174,5 +203,7 @@ loadData().then(lists => {
     all_words = wordlist
     answer_words = answerlist
 
-    chooseWord(answerlist)
+    if (game_state["target_word"] == "") {
+        chooseWord(answerlist)
+    }
 })

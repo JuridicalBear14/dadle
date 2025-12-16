@@ -14,6 +14,62 @@ body {
     margin-top: 35%;
 }
 
+/* Overlay windows */
+.overlay {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+}
+
+/* Win/loss box (overlay) */
+#winloss {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #3a3a3c;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#winloss h1 {
+    color: white;
+    font-size: 40px;
+}
+
+#winloss p {
+    color: white;
+    font-size: 20px;
+    width: 70%;
+    text-align: center;
+    margin: 2;
+}
+
+#winloss button {
+    display: flex;
+    margin: 3px;
+    border-radius: 7px;
+    width: 160px;
+    height: 70px;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #538d4e;
+    text-transform: uppercase;
+    padding: 2px;
+    cursor: pointer;
+}
+
 .letter-box {
     display: flex;
     margin: 3px;

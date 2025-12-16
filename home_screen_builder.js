@@ -68,4 +68,81 @@ function buildTitle() {
     }
 }
 
+// Build the stats popup
+function buildStats(win, word) {
+    let stats = load_stats()
+
+    let overlay = document.createElement("div")
+    overlay.setAttribute("id", "popup")
+    overlay.setAttribute("class", "overlay")
+
+    let wl = document.createElement("div")
+    wl.setAttribute("id", "winloss")
+
+    let title = document.createElement("h1")
+    title.innerHTML = "Stats"
+
+    let wins = document.createElement("p")
+    wins.innerHTML = `Wins: ${stats["wins"]}`
+
+    let losses = document.createElement("p")
+    losses.innerHTML = `Losses: ${stats["losses"]}`
+
+    wl.appendChild(title)
+    wl.appendChild(wins)
+    wl.appendChild(losses)
+
+    // Wins by len
+    for (let i = 0; i < 6; i++) {
+        let p = document.createElement("p")
+        p.innerHTML = `${i + 1} Letter: ${stats["wins_by_len"][i]}`
+
+        wl.append(p)
+    }
+
+    let button = document.createElement("button")
+    button.setAttribute("onclick", "closePopup()")
+    button.innerHTML = "Done"
+
+    // Now add them all together
+    wl.appendChild(button)
+    overlay.appendChild(wl)
+
+    document.body.appendChild(overlay)
+}
+
+// Build the info popup
+function buildInfo(win, word) {
+    let overlay = document.createElement("div")
+    overlay.setAttribute("id", "popup")
+    overlay.setAttribute("class", "overlay")
+
+    let wl = document.createElement("div")
+    wl.setAttribute("id", "winloss")
+
+    let title = document.createElement("h1")
+    title.innerHTML = "Happy Birthday!"
+
+    let subtext = document.createElement("p")
+    subtext.innerHTML = "For your birthday this year, I built you your very own Wordle! It plays just like regular Wordle and even pulls from the same solution database. The best part? This site is a Progressive Web App, and you can download it on your phone. Just click the box with an arrow in it below the address bar, then look for add to home screen. Love, Parker"
+
+    let button = document.createElement("button")
+    button.setAttribute("onclick", "closePopup()")
+    button.innerHTML = "Done"
+
+    // Now add them all together
+    wl.appendChild(title)
+    wl.appendChild(subtext)
+    wl.appendChild(button)
+    overlay.appendChild(wl)
+
+    document.body.appendChild(overlay)
+}
+
+// Close the popups
+function closePopup() {
+    let o = document.getElementById("popup")
+    o.remove()
+}
+
 buildTitle()

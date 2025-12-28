@@ -5,7 +5,17 @@ self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
     cache.addAll([
-      './'
+      './',
+      'storage_manager.js',
+      'all-words.txt',
+      'answer-words.txt',
+      'game.html',
+      'index.html',
+      'game_manager.js',
+      'game_styles.css',
+      'home_styles.css',
+      'ui_builder.js',
+      'home_screen_builder.js'
     ]);
   })());
 });

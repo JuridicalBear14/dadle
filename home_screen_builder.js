@@ -95,7 +95,7 @@ function buildStats(win, word) {
     // Wins by len
     for (let i = 0; i < 6; i++) {
         let p = document.createElement("p")
-        p.innerHTML = `${i + 1} Letter: ${stats["wins_by_len"][i]}`
+        p.innerHTML = `${i + 1} Word: ${stats["wins_by_len"][i]}`
 
         wl.append(p)
     }

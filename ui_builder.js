@@ -111,6 +111,9 @@ function buildKeyboard() {
 
 // Build the win/loss popup
 function buildWL(win, word) {
+    // Disable the keyboard
+    DISABLE_KEYBOARD = true
+
     let overlay = document.createElement("div")
     overlay.setAttribute("id", "popup")
     overlay.setAttribute("class", "overlay")
@@ -124,6 +127,10 @@ function buildWL(win, word) {
     let subtext = document.createElement("p")
     subtext.innerHTML = `The Word Was: ${word.toUpperCase()}`
 
+    let view = document.createElement("button")
+    view.setAttribute("onclick", "deletePopups()")
+    view.innerHTML = "view game"
+
     let button = document.createElement("button")
     button.setAttribute("onclick", "newGame()")
     button.innerHTML = "play again"
@@ -131,10 +138,19 @@ function buildWL(win, word) {
     // Now add them all together
     wl.appendChild(title)
     wl.appendChild(subtext)
+    wl.appendChild(view)
     wl.appendChild(button)
     overlay.appendChild(wl)
 
     document.body.appendChild(overlay)
+}
+
+// Delete all popups (to remove wl mostly)
+function deletePopups() {
+    let p = document.getElementById("popup")
+    if (p != null) {
+        p.remove()
+    }
 }
 
 // On startup build the ui

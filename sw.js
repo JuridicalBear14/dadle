@@ -1,4 +1,5 @@
 const CACHE_NAME = `dadle`;
+const VERSION = 'v1.1'
     
 // Use the install event to pre-cache all initial resources.
 self.addEventListener('install', event => {

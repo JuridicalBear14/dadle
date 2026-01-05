@@ -5,10 +5,28 @@ let stats = load_stats()
 let all_words = []
 let answer_words = []
 
+let DISABLE_KEYBOARD = false
+
 // Gameplay stuff
+
+// Check for multiple letter occurrences in a word
+function LCount(word, letter) {
+    let count = 0
+    for (n in word) {
+        if (n == letter) {
+            count++
+        }
+    }
+
+    return count
+}
 
 // Handle keyboard click
 function keyPress(key) {
+    if (DISABLE_KEYBOARD) {
+        return
+    }
+
     // Here for typing convenience
     let current_word = game_state["current_word"]
     let target_word = game_state["target_word"]
@@ -46,15 +64,28 @@ function keyPress(key) {
         // Game logic goes here
         // Game states: 0 wrong, 1 present, 2 right
         let states = [0, 0, 0, 0, 0]
+        let findable_letters = target_word   // Make sure we don't give out too many yellows
 
         // Box background colors
         let colors = ["#3a3a3c", "#b59f3b", "#538d4e"]
 
+        // Done in two passes so early yellows don't mess up future greens
+
+        // First pass for greens
         for (let i = 0; i < 5; i++) {
             if (target_word[i] == current_word[i]) {   // Correct
                 states[i] = 2
-            } else if (target_word.includes(current_word[i])) {   // Present
+
+                // Remove from duplicate pool
+                findable_letters = findable_letters.replace(current_word[i], "")
+            }
+        }
+
+        // Second pass for yellows
+        for (let i = 0; i < 5; i++) {
+            if (findable_letters.includes(current_word[i])) {   // Present
                 states[i] = 1
+                findable_letters = findable_letters.replace(current_word[i], "")
             }
         }
 
@@ -196,6 +227,8 @@ function newGame() {
     // Rebuild UI
     buildKeyboard()
     buildLetterGrid()
+
+    DISABLE_KEYBOARD = false
 }
 
 loadData().then(lists => {

@@ -83,7 +83,7 @@ function keyPress(key) {
 
         // Second pass for yellows
         for (let i = 0; i < 5; i++) {
-            if (findable_letters.includes(current_word[i])) {   // Present
+            if (findable_letters.includes(current_word[i]) && states[i] == 0) {   // Present
                 states[i] = 1
                 findable_letters = findable_letters.replace(current_word[i], "")
             }
